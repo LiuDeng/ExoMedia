@@ -1,11 +1,16 @@
-package com.devbrackets.android.exomediademo.ui.activity;
+package com.devbrackets.android.exomedia;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
 import com.devbrackets.android.exomedia.listener.EMVideoViewControlsCallback;
+import com.devbrackets.android.exomedia.util.MediaUtil;
 import com.devbrackets.android.exomedia.widget.DefaultControls;
 
 /**
@@ -13,20 +18,47 @@ import com.devbrackets.android.exomedia.widget.DefaultControls;
  * <p>
  * <b><em>NOTE:</em></b> the EMVideoView setup is done in the {@link VideoPlayerActivity}
  */
-public class FullScreenVideoPlayerActivity extends VideoPlayerActivity {
-    private FullScreenListener fullScreenListener;
+public class EMFullScreenVideoPlayerActivity extends Activity implements MediaPlayer.OnPreparedListener {
+
+    static String VideoUrlToPlay = "";
+    static MediaUtil.MediaType VideoMediaType;
+
+    public static  void startFullScreenPlay(Activity activity,String url, MediaUtil.MediaType mediaType)
+    {
+        if (url == null || url.isEmpty())return;
+        VideoUrlToPlay = url;
+        VideoMediaType = mediaType;
+        activity.startActivity(new Intent(activity,EMFullScreenVideoPlayerActivity.class));
+    }
+
+    protected EMVideoView emVideoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.fullscreen_video_player_activity);
 
+        emVideoView = (EMVideoView)findViewById(R.id.video_play_activity_video_view);
+        emVideoView.setOnPreparedListener(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             fullScreenListener = new FullScreenListener();
         }
 
         goFullscreen();
         emVideoView.setVideoViewControlsCallback(new DefaultControlsCallback());
+        emVideoView.setVideoURI(Uri.parse(VideoUrlToPlay), VideoMediaType);
     }
+
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+        //Starts the video playback as soon as it is ready
+        emVideoView.start();
+    }
+
+
+    private FullScreenListener fullScreenListener;
+
+
 
     @Override
     public void onDestroy() {
@@ -82,7 +114,7 @@ public class FullScreenVideoPlayerActivity extends VideoPlayerActivity {
 
     /**
      * Listens to the system to determine when to show the default controls
-     * for the {@link com.devbrackets.android.exomedia.EMVideoView}
+     * for the {@link EMVideoView}
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private class FullScreenListener implements View.OnSystemUiVisibilityChangeListener {

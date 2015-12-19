@@ -9,5 +9,11 @@
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".EMFullScreenVideoPlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            >
+        </activity>
     </application>
 </manifest>
