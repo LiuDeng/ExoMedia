@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
+import com.devbrackets.android.exomedia.builder.ExtractorRendererBuilder;
 import com.devbrackets.android.exomedia.builder.HlsRenderBuilder;
 import com.devbrackets.android.exomedia.builder.RenderBuilder;
 import com.devbrackets.android.exomedia.event.EMMediaProgressEvent;
@@ -284,7 +285,7 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
             case HLS:
                 return new HlsRenderBuilder(getContext(), getUserAgent(), uri.toString());
             default:
-                return new RenderBuilder(getContext(), getUserAgent(), uri.toString(), defaultMediaType);
+                return new ExtractorRendererBuilder(getContext(), getUserAgent(), uri.toString());
         }
     }
 
