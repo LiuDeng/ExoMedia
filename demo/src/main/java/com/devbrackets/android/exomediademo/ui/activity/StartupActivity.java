@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.devbrackets.android.exomedia.EMFullScreenVideoPlayerActivity;
+import com.devbrackets.android.exomedia.util.MediaUtil;
 import com.devbrackets.android.exomediademo.R;
 import com.devbrackets.android.exomediademo.adapter.StartupListAdapter;
 
@@ -47,8 +49,7 @@ public class StartupActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void startFullscreenVideoPlayerActivity() {
-        Intent intent = new Intent(this, FullScreenVideoPlayerActivity.class);
-        startActivity(intent);
+        EMFullScreenVideoPlayerActivity.startFullScreenPlay(this,"http://us.sinaimg.cn/0017W0DNjx06XTEl1ZfN050d010000i60k01.m3u8", MediaUtil.MediaType.HLS);
     }
 
     private void startAudioPlayerActivity() {

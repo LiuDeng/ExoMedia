@@ -25,11 +25,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_video_player">
         </activity>
-        <activity
-            android:name=".ui.activity.FullScreenVideoPlayerActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_video_player">
-        </activity>
+
         <activity
             android:name=".ui.activity.AudioSelectionActivity"
             android:label="@string/title_activity_audio_player">
