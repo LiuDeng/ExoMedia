@@ -29,6 +29,7 @@ import com.google.android.exoplayer.MediaCodecUtil;
 import com.google.android.exoplayer.MediaCodecVideoTrackRenderer;
 import com.google.android.exoplayer.TrackRenderer;
 import com.google.android.exoplayer.chunk.VideoFormatSelectorUtil;
+import com.google.android.exoplayer.ext.okhttp.OkUriDataSource;
 import com.google.android.exoplayer.hls.HlsChunkSource;
 import com.google.android.exoplayer.hls.HlsMasterPlaylist;
 import com.google.android.exoplayer.hls.HlsPlaylist;
@@ -66,7 +67,7 @@ public class HlsRenderBuilder extends RenderBuilder implements ManifestCallback<
     public void buildRenderers(EMExoPlayer player) {
         this.player = player;
         HlsPlaylistParser parser = new HlsPlaylistParser();
-        ManifestFetcher<HlsPlaylist> playlistFetcher = new ManifestFetcher<>(uri, new DefaultUriDataSource(context, null, userAgent, true), parser);
+        ManifestFetcher<HlsPlaylist> playlistFetcher = new ManifestFetcher<>(uri, new OkUriDataSource(context, null, userAgent, true), parser);
         playlistFetcher.singleLoad(player.getMainHandler().getLooper(), this);
     }
 
@@ -94,7 +95,7 @@ public class HlsRenderBuilder extends RenderBuilder implements ManifestCallback<
         }
 
         //Create the Sample Source to be used by the renders
-        DataSource dataSource = new DefaultUriDataSource(context, bandwidthMeter, userAgent, true);
+        DataSource dataSource = new OkUriDataSource(context, bandwidthMeter, userAgent, true);
         HlsChunkSource chunkSource = new HlsChunkSource(dataSource, uri, playlist, bandwidthMeter,
                 variantIndices, HlsChunkSource.ADAPTIVE_MODE_SPLICE);
 

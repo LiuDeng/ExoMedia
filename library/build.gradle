@@ -16,6 +16,7 @@ dependencies {
 
     // ExoPlayer
     compile 'com.google.android.exoplayer:exoplayer:r1.5.3'
+    compile 'com.squareup.okhttp:okhttp:2.7.0'
 }
 
 android {
