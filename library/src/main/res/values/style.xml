@@ -2,4 +2,10 @@
 <resources>
     <style name="exomedia_notification_title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title" />
     <style name="exomedia_notification_content" parent="@android:style/TextAppearance.StatusBar.EventContent" />
+
+    <style name="Theme.Video.Fullscreen" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 </resources>
