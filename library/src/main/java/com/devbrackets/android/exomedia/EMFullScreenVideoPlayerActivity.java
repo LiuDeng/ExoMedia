@@ -16,7 +16,7 @@ import com.devbrackets.android.exomedia.widget.DefaultControls;
 /**
  * A simple example of making a fullscreen video player activity.
  * <p>
- * <b><em>NOTE:</em></b> the EMVideoView setup is done in the {@link VideoPlayerActivity}
+ * <b><em>NOTE:</em></b> the EMVideoView setup is done in the {@link}
  */
 public class EMFullScreenVideoPlayerActivity extends Activity implements MediaPlayer.OnPreparedListener {
 
@@ -52,7 +52,7 @@ public class EMFullScreenVideoPlayerActivity extends Activity implements MediaPl
     @Override
     public void onPrepared(MediaPlayer mp) {
         //Starts the video playback as soon as it is ready
-        emVideoView.start();
+        emVideoView.start(true);
     }
 
 
@@ -131,6 +131,12 @@ public class EMFullScreenVideoPlayerActivity extends Activity implements MediaPl
      * so that we can re-enter fullscreen mode when the controls are hidden.
      */
     private class DefaultControlsCallback implements EMVideoViewControlsCallback {
+        @Override
+        public boolean onFullScreenClicked() {
+            EMFullScreenVideoPlayerActivity.this.finish();
+            return true;
+        }
+
         @Override
         public boolean onPlayPauseClicked() {
             return false; // No additional functionality performed

@@ -87,9 +87,20 @@
             android:id="@+id/exomedia_controls_end_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@+id/exomedia_video_fullscreen_unfullscreen"
             android:layout_centerVertical="true"
             android:textColor="@android:color/white"
             tools:text="99:99" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/exomedia_video_fullscreen_unfullscreen"
+            android:src="@drawable/exomedia_ic__fullscreen"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            />
+
+
     </RelativeLayout>
 </com.devbrackets.android.exomedia.widget.FitsSystemWindowRelativeLayout>

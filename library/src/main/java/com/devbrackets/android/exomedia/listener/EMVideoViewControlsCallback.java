@@ -21,6 +21,9 @@ package com.devbrackets.android.exomedia.listener;
  * their corresponding EventBus events.
  */
 public interface EMVideoViewControlsCallback {
+
+    boolean onFullScreenClicked();
+
     /**
      * Occurs when the PlayPause button on the VideoView is clicked.
      * You can also catch this event with the EventBus event

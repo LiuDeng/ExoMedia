@@ -17,6 +17,7 @@
 package com.devbrackets.android.exomedia.widget;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -29,12 +30,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.devbrackets.android.exomedia.EMFullScreenVideoPlayerActivity;
 import com.devbrackets.android.exomedia.EMVideoView;
 import com.devbrackets.android.exomedia.R;
+import com.devbrackets.android.exomedia.event.EMMediaFullscreenEvent;
 import com.devbrackets.android.exomedia.event.EMMediaNextEvent;
 import com.devbrackets.android.exomedia.event.EMMediaPlayPauseEvent;
 import com.devbrackets.android.exomedia.event.EMMediaPreviousEvent;
@@ -65,6 +69,7 @@ public abstract class DefaultControls extends RelativeLayout {
     protected ImageButton nextButton;
     protected ViewGroup controlsContainer;
     protected ProgressBar loadingProgress;
+    protected ImageView fullScreenBtn;
 
     protected Drawable defaultPlayDrawable;
     protected Drawable defaultPauseDrawable;
@@ -283,6 +288,12 @@ public abstract class DefaultControls extends RelativeLayout {
         }
     }
 
+    public void setIsFullScreen(boolean isFullScreen)
+    {
+        if (isFullScreen)
+            fullScreenBtn.setImageDrawable(getResources().getDrawable(R.drawable.exomedia_ic_exit_fullscreen));
+    }
+
     /**
      * Sets the button state for the Previous button.  This will just
      * change the images specified with {@link #setPreviousImageResource(int)},
@@ -437,6 +448,7 @@ public abstract class DefaultControls extends RelativeLayout {
     protected void retrieveViews() {
         currentTime = (TextView) findViewById(R.id.exomedia_controls_current_time);
         endTime = (TextView) findViewById(R.id.exomedia_controls_end_time);
+        fullScreenBtn = (ImageView) findViewById(R.id.exomedia_video_fullscreen_unfullscreen);
         playPauseButton = (ImageButton) findViewById(R.id.exomedia_controls_play_pause_btn);
         previousButton = (ImageButton) findViewById(R.id.exomedia_controls_previous_btn);
         nextButton = (ImageButton) findViewById(R.id.exomedia_controls_next_btn);
@@ -465,6 +477,12 @@ public abstract class DefaultControls extends RelativeLayout {
             @Override
             public void onClick(View v) {
                 onNextClick();
+            }
+        });
+        fullScreenBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onFullScreenClick();
             }
         });
     }
@@ -536,6 +554,23 @@ public abstract class DefaultControls extends RelativeLayout {
 
         if (bus != null) {
             bus.post(new EMMediaNextEvent());
+        }
+    }
+
+
+    protected void onFullScreenClick()
+    {
+        if (callback != null && callback.onFullScreenClicked()) {
+            return;
+        }
+
+        if (bus != null) {
+            bus.post(new EMMediaFullscreenEvent());
+        }
+
+        if (videoView != null && videoView.getVideoUri() != null)
+        {
+            EMFullScreenVideoPlayerActivity.startFullScreenPlay((Activity) videoView.getContext(),videoView.getVideoUri().toString() , videoView.getVideoType());
         }
     }
 

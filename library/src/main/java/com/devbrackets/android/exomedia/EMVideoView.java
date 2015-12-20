@@ -115,6 +115,7 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
     private EMEventBus bus;
 
     private Uri videoUri;
+    MediaUtil.MediaType videoType;
     private EMMediaProgressEvent currentMediaProgressEvent = new EMMediaProgressEvent(0, 0, 0);
 
     public EMVideoView(Context context) {
@@ -751,6 +752,7 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
      */
     public void setVideoURI(Uri uri, MediaUtil.MediaType defaultMediaType) {
         videoUri = uri;
+        videoType = defaultMediaType;
 
         if (!useExo) {
             videoView.setVideoURI(uri);
@@ -791,6 +793,11 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
     @Nullable
     public Uri getVideoUri() {
         return videoUri;
+    }
+
+    public MediaUtil.MediaType getVideoType()
+    {
+        return videoType;
     }
 
     /**
@@ -844,12 +851,16 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
         return emExoPlayer.getPlayWhenReady();
     }
 
+    public void start() {
+        start(false);
+    }
+
     /**
      * Starts the playback for the video specified in {@link #setVideoURI(android.net.Uri)}
      * or {@link #setVideoPath(String)}.  This should be called after the VideoView is correctly
      * prepared (see {@link #setOnPreparedListener(android.media.MediaPlayer.OnPreparedListener)})
      */
-    public void start() {
+    public void start(boolean isFullScreen) {
         if (!useExo) {
             videoView.start();
         } else {
@@ -858,6 +869,7 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
 
         if (defaultControls != null) {
             defaultControls.updatePlayPauseImage(true);
+            defaultControls.setIsFullScreen(isFullScreen);
             defaultControls.hideDelayed(DefaultControls.DEFAULT_CONTROL_HIDE_DELAY);
         }
 
