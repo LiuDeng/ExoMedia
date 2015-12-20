@@ -47,6 +47,7 @@ public class EMFullScreenVideoPlayerActivity extends Activity implements MediaPl
         goFullscreen();
         emVideoView.setVideoViewControlsCallback(new DefaultControlsCallback());
         emVideoView.setVideoURI(Uri.parse(VideoUrlToPlay), VideoMediaType);
+        emVideoView.setIsFullScreen(true);
     }
 
     @Override
@@ -71,7 +72,7 @@ public class EMFullScreenVideoPlayerActivity extends Activity implements MediaPl
     }
 
     private void exitFullscreen() {
-        setUiFlags(false);
+        //setUiFlags(true);
     }
 
     /**

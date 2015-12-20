@@ -304,6 +304,12 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
         this.releaseOnDetachFromWindow = releaseOnDetach;
     }
 
+    public void setIsFullScreen(boolean isFullScreen)
+    {
+        if (defaultControls == null)return;
+        defaultControls.setIsFullScreen(isFullScreen);
+    }
+
     /**
      * Stops the playback and releases all resources attached to this
      * EMVideoView.  This should not be called manually unless
