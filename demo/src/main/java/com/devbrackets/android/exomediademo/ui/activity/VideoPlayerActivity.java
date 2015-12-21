@@ -22,7 +22,7 @@ public class VideoPlayerActivity extends Activity implements MediaPlayer.OnPrepa
 
         //For now we just picked an arbitrary item to play.  More can be found at
         //https://archive.org/details/more_animation
-        emVideoView.setVideoURI(Uri.parse("http://us.sinaimg.cn/0017W0DNjx06XTEl1ZfN050d010000i60k01.m3u8"));
+        emVideoView.setVideoURI(Uri.parse("http://static.qiuduanribao.com/4330150829.mp4"));
     }
 
     @Override

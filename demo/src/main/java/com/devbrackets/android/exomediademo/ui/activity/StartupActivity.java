@@ -49,7 +49,7 @@ public class StartupActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void startFullscreenVideoPlayerActivity() {
-        EMFullScreenVideoPlayerActivity.startFullScreenPlay(this,"http://us.sinaimg.cn/0017W0DNjx06XTEl1ZfN050d010000i60k01.m3u8", MediaUtil.MediaType.HLS);
+        EMFullScreenVideoPlayerActivity.startFullScreenPlay(this,"http://us.sinaimg.cn/000k3zvOjx06XU1TWfX2050d0100006H0k01.m3u8", MediaUtil.MediaType.HLS);
     }
 
     private void startAudioPlayerActivity() {
