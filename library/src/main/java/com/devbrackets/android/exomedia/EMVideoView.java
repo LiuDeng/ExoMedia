@@ -1169,6 +1169,7 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
         public void onMediaPlaybackEnded() {
             onPlaybackEnded();
             defaultControls.getPlayPauseButton().setVisibility(GONE);
+            defaultControls.setLoading(false);
             replayCoverView.setVisibility(VISIBLE);
             if (isFullScreenPlay)exitFullScreen.setVisibility(VISIBLE);
         }
