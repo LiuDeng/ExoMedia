@@ -50,4 +50,49 @@
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
         tools:ignore="ContentDescription"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#7d000000"
+        android:id="@+id/exomedia_replay_cover"
+        android:gravity="center"
+        android:visibility="gone"
+        >
+
+
+        <TextView
+            android:id="@+id/exomedia_replay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/replay"
+            android:drawableTop="@drawable/exomedia_ic_replay"
+            android:textColor="#b2ffffff"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:layout_centerInParent="true"
+            android:drawablePadding="6dp"
+            />
+
+
+
+        <TextView
+            android:id="@+id/exomedia_exit_full_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exit_full_screen"
+            android:drawableTop="@drawable/exomedia_ic_exit_fullscreen"
+            android:layout_toRightOf="@id/exomedia_replay"
+            android:textColor="#b2ffffff"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:layout_alignBaseline="@id/exomedia_replay"
+            android:layout_centerInParent="true"
+            android:drawablePadding="3dp"
+            android:visibility="gone"
+            />
+
+    </RelativeLayout>
+
 </RelativeLayout>

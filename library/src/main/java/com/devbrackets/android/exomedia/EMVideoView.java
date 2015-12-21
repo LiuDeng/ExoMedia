@@ -89,6 +89,9 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
     private View shutterLeft;
 
     private ImageView previewImageView;
+    private View replayCoverView;
+    private View replayBtn;
+    private View exitFullScreen;
 
     private TouchVideoView videoView;
     private VideoSurfaceView exoVideoSurfaceView;
@@ -110,6 +113,8 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
     private EMListenerMux listenerMux;
     private boolean playRequested = false;
     private boolean releaseOnDetachFromWindow = true;
+
+    boolean isFullScreenPlay = false;
 
     @Nullable
     private EMEventBus bus;
@@ -237,6 +242,24 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
         shutterRight = findViewById(R.id.exomedia_video_shutter_right);
 
         previewImageView = (ImageView) findViewById(R.id.exomedia_video_preview_image);
+        replayCoverView = findViewById(R.id.exomedia_replay_cover);
+        replayBtn = findViewById(R.id.exomedia_replay);
+        exitFullScreen = findViewById(R.id.exomedia_exit_full_screen);
+        replayBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replayCoverView.setVisibility(GONE);
+                defaultControls.setPosition(0);
+                seekTo(0);
+                start();
+            }
+        });
+        exitFullScreen.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                defaultControls.onFullScreenClick();
+            }
+        });
 
         exoVideoSurfaceView = (VideoSurfaceView) findViewById(R.id.exomedia_exo_video_surface);
         videoView = (TouchVideoView) findViewById(R.id.exomedia_android_video_view);
@@ -306,6 +329,7 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
 
     public void setIsFullScreen(boolean isFullScreen)
     {
+        isFullScreenPlay = isFullScreen;
         if (defaultControls == null)return;
         defaultControls.setIsFullScreen(isFullScreen);
     }
@@ -858,7 +882,7 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
     }
 
     public void start() {
-        start(false);
+        start(isFullScreenPlay);
     }
 
     /**
@@ -867,6 +891,7 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
      * prepared (see {@link #setOnPreparedListener(android.media.MediaPlayer.OnPreparedListener)})
      */
     public void start(boolean isFullScreen) {
+        isFullScreenPlay = isFullScreen;
         if (!useExo) {
             videoView.start();
         } else {
@@ -1134,6 +1159,9 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
         @Override
         public void onMediaPlaybackEnded() {
             onPlaybackEnded();
+            defaultControls.getPlayPauseButton().setVisibility(GONE);
+            replayCoverView.setVisibility(VISIBLE);
+            if (isFullScreenPlay)exitFullScreen.setVisibility(VISIBLE);
         }
 
         @Override

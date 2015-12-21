@@ -64,6 +64,15 @@ public abstract class DefaultControls extends RelativeLayout {
 
     protected TextView currentTime;
     protected TextView endTime;
+
+    public ImageButton getPlayPauseButton() {
+        return playPauseButton;
+    }
+
+    public void setPlayPauseButton(ImageButton playPauseButton) {
+        this.playPauseButton = playPauseButton;
+    }
+
     protected ImageButton playPauseButton;
     protected ImageButton previousButton;
     protected ImageButton nextButton;
@@ -273,6 +282,7 @@ public abstract class DefaultControls extends RelativeLayout {
      * @param isPlaying If the video is currently playing
      */
     public void updatePlayPauseImage(boolean isPlaying) {
+        playPauseButton.setVisibility(VISIBLE);
         if (isPlaying) {
             if (pauseResourceId != INVALID_RESOURCE_ID) {
                 playPauseButton.setImageResource(pauseResourceId);
@@ -558,7 +568,7 @@ public abstract class DefaultControls extends RelativeLayout {
     }
 
 
-    protected void onFullScreenClick()
+    public void onFullScreenClick()
     {
         if (callback != null && callback.onFullScreenClicked()) {
             return;
