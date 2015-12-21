@@ -50,27 +50,21 @@ public class EMFullScreenVideoPlayerActivity extends AppCompatActivity implement
         emVideoView.setReleaseOnDetachFromWindow(false);
     }
 
-
-    @Override
-    protected void onStop() {
-        releaseVideoView();
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        releaseVideoView();
-        super.onDestroy();
-    }
-
     void  releaseVideoView()
     {
-        if (emVideoView != null) {
-            containerView.removeAllViews();
-            emVideoView.release();
-            emVideoView = null;
-        }
+        if (emVideoView == null)return;
+        emVideoView.release();
+        if (containerView != null)
+            containerView.removeView(emVideoView);
+        emVideoView = null;
     }
+
+    @Override
+    public void onBackPressed() {
+        releaseVideoView();
+        super.onBackPressed();
+    }
+
 
     @Override
     public void onPrepared(MediaPlayer mp) {

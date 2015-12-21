@@ -581,6 +581,7 @@ public abstract class DefaultControls extends RelativeLayout {
         if (videoView != null && videoView.getVideoUri() != null)
         {
             EMFullScreenVideoPlayerActivity.startFullScreenPlay((Activity) videoView.getContext(),videoView.getVideoUri().toString() , videoView.getVideoType());
+            videoView.release();
         }
     }
 

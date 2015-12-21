@@ -155,11 +155,13 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
             release();
         }
     }
+
     @Override
     protected void finalize() throws Throwable {
-        Log.e("Finish:", "Finish Video View");
+        Log.e("Finish:", "Finish Video View" + isFullScreenPlay);
         super.finalize();
     }
+
 
 
     @Override
