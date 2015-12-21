@@ -48,6 +48,18 @@ public class EMFullScreenVideoPlayerActivity extends AppCompatActivity implement
     }
 
     @Override
+    protected void onStop() {
+        emVideoView.release();
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        if (emVideoView != null)emVideoView.release();
+        super.onStart();
+    }
+
+    @Override
     public void onPrepared(MediaPlayer mp) {
         emVideoView.start(true);
     }
