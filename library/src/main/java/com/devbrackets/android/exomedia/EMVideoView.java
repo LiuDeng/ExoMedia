@@ -27,6 +27,7 @@ import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -154,6 +155,12 @@ public class EMVideoView extends RelativeLayout implements AudioCapabilitiesRece
             release();
         }
     }
+    @Override
+    protected void finalize() throws Throwable {
+        Log.e("Finish:", "Finish Video View");
+        super.finalize();
+    }
+
 
     @Override
     public void setOnTouchListener(OnTouchListener listener) {

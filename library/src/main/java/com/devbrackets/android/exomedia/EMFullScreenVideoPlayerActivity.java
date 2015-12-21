@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.devbrackets.android.exomedia.listener.EMVideoViewControlsCallback;
 import com.devbrackets.android.exomedia.util.MediaUtil;
@@ -32,12 +33,14 @@ public class EMFullScreenVideoPlayerActivity extends AppCompatActivity implement
         activity.startActivity(new Intent(activity,EMFullScreenVideoPlayerActivity.class));
     }
 
+    protected ViewGroup containerView;
     protected EMVideoView emVideoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fullscreen_video_player_activity);
+        containerView = (ViewGroup)findViewById(R.id.video_view_container);
 
         emVideoView = (EMVideoView)findViewById(R.id.video_play_activity_video_view);
         emVideoView.setOnPreparedListener(this);
@@ -47,16 +50,26 @@ public class EMFullScreenVideoPlayerActivity extends AppCompatActivity implement
         emVideoView.setReleaseOnDetachFromWindow(false);
     }
 
+
     @Override
     protected void onStop() {
-        emVideoView.release();
+        releaseVideoView();
         super.onStop();
     }
 
     @Override
-    protected void onStart() {
-        if (emVideoView != null)emVideoView.release();
-        super.onStart();
+    protected void onDestroy() {
+        releaseVideoView();
+        super.onDestroy();
+    }
+
+    void  releaseVideoView()
+    {
+        if (emVideoView != null) {
+            containerView.removeAllViews();
+            emVideoView.release();
+            emVideoView = null;
+        }
     }
 
     @Override
