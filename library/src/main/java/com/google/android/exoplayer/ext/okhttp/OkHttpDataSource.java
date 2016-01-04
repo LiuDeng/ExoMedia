@@ -278,8 +278,8 @@ public class OkHttpDataSource implements HttpDataSource {
 
         String urlStr = dataSpec.uri.toString();
         HttpUrl url = HttpUrl.parse(urlStr);
-        Request.Builder builder = new Request.Builder().url(url).addHeader("Referer", getDomainName(urlStr)).addHeader("Referer", urlStr);
-        builder.header("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:22.0) Gecko/20100101 Firefox/22.0 MQQBrowser/26 Mozilla/5.0 (Linux; U; Android 2.3.7; zh-cn; MB200 Build/GRJ22; CyanogenMod-7) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
+        Request.Builder builder = new Request.Builder().url(url).removeHeader("Referer");
+        builder.header("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X; en-us) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.5");
         if (cacheControl != null) {
             builder.cacheControl(cacheControl);
         }
