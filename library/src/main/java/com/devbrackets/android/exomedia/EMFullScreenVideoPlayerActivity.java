@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.devbrackets.android.exomedia.listener.EMVideoViewControlsCallback;
 import com.devbrackets.android.exomedia.util.MediaUtil;
@@ -24,6 +25,7 @@ public class EMFullScreenVideoPlayerActivity extends AppCompatActivity implement
 
     static String VideoUrlToPlay = "";
     static MediaUtil.MediaType VideoMediaType;
+    public static int StartPlayPos = 0;
 
     public static  void startFullScreenPlay(Activity activity,String url, MediaUtil.MediaType mediaType)
     {
@@ -39,6 +41,7 @@ public class EMFullScreenVideoPlayerActivity extends AppCompatActivity implement
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.fullscreen_video_player_activity);
         containerView = (ViewGroup)findViewById(R.id.video_view_container);
 
@@ -48,6 +51,7 @@ public class EMFullScreenVideoPlayerActivity extends AppCompatActivity implement
         emVideoView.setVideoURI(Uri.parse(VideoUrlToPlay), VideoMediaType);
         emVideoView.setIsFullScreen(true);
         emVideoView.setReleaseOnDetachFromWindow(false);
+        emVideoView.seekTo(StartPlayPos);
     }
 
     void  releaseVideoView()
